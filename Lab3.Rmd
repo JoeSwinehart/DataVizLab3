@@ -19,4 +19,5 @@ library(here)
 library(tidyverse)
 library(lubridate)
 library(waffle)
+imported_honey_production <- read.csv(here("data", "honeyproduction.csv"))
 ```
