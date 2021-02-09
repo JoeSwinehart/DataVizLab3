@@ -2,7 +2,10 @@
 .Rhistory
 .RData
 .Ruserdata
+<<<<<<< HEAD
 .DSStore
 data/.DS_Store
 
+=======
+>>>>>>> main
 .DS_Store
