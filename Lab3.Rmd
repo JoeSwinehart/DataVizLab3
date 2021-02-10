@@ -21,6 +21,8 @@ library(lubridate)
 library(waffle)
 library(dplyr)
 library(directlabels)
+library(gghighlight)
+library(colorblindr)
 imported_honey_production <- read.csv(here("data", "honeyproduction.csv"))
 ```
 
@@ -65,4 +67,170 @@ ggplot(purifiedhoney, aes(year, prodsimpler)) +
   annotate(geom = "text", x = 1998.3, y = 1900, label = "OREGON", hjust = "left")
 
 ```
+
+```{r colorblind friendly #1 - Duetanomaly}
+ggplot(purifiedhoney, aes(year, prodsimpler)) +
+  geom_line(aes(group=state),
+            color = "gray80") +
+  geom_line(data = filter(purifiedhoney,
+                           state == "OR"),
+           color = "#E5B33F") +
+    geom_line(data = filter(purifiedhoney,
+                           state == "WA"),
+           color = "#8EA7E7") +
+  
+    geom_line(data = filter(purifiedhoney,
+                           state == "CA"),
+           color = "#FFE26A") +
+  scale_y_log10()+
+  labs(title = "US Honey Production",
+       subtitle = "1998-2012",
+       y = "Thousands of gallons",
+       x = "Year",
+       caption = "A queen bee can sting multiple times without dying.")+    
+  annotate(geom = "point", x = 1998, y = 37350, colour = "#FFE26A", size = 3) + 
+  annotate(geom = "point", x = 1998, y = 37350) + 
+  annotate(geom = "text", x = 1998.3, y = 37350, label = "CALIFORNIA", hjust = "left")+    
+  annotate(geom = "point", x = 1998, y = 2955, colour = "#8EA7E7", size = 3) + 
+  annotate(geom = "point", x = 1998, y = 2955) + 
+  annotate(geom = "text", x = 1998.3, y = 3500, label = "WASHINGTON", hjust = "left")+    
+  annotate(geom = "point", x = 1998, y = 2250, colour = "#E5B33F", size = 3) + 
+  annotate(geom = "point", x = 1998, y = 2250) + 
+  annotate(geom = "text", x = 1998.3, y = 1900, label = "OREGON", hjust = "left")
+```
+
+```{r colorblind friendly #2 - Protanomaly}
+ggplot(purifiedhoney, aes(year, prodsimpler)) +
+  geom_line(aes(group=state),
+            color = "gray80") +
+  geom_line(data = filter(purifiedhoney,
+                           state == "OR"),
+           color = "#FFD960") +
+    geom_line(data = filter(purifiedhoney,
+                           state == "WA"),
+           color = "#A2B6EB") +
+  
+    geom_line(data = filter(purifiedhoney,
+                           state == "CA"),
+           color = "#D5A238") +
+  scale_y_log10()+
+  labs(title = "US Honey Production",
+       subtitle = "1998-2012",
+       y = "Thousands of gallons",
+       x = "Year",
+       caption = "A typical Bee colony consists of 30,000 to 60,000 bees.")+    
+  annotate(geom = "point", x = 1998, y = 37350, colour = "#D5A238", size = 3) + 
+  annotate(geom = "point", x = 1998, y = 37350) + 
+  annotate(geom = "text", x = 1998.3, y = 37350, label = "CALIFORNIA", hjust = "left")+    
+  annotate(geom = "point", x = 1998, y = 2955, colour = "#A2B6EB", size = 3) + 
+  annotate(geom = "point", x = 1998, y = 2955) + 
+  annotate(geom = "text", x = 1998.3, y = 3500, label = "WASHINGTON", hjust = "left")+    
+  annotate(geom = "point", x = 1998, y = 2250, colour = "#FFD960", size = 3) + 
+  annotate(geom = "point", x = 1998, y = 2250) + 
+  annotate(geom = "text", x = 1998.3, y = 1900, label = "OREGON", hjust = "left")
+```
+
+```{r colorblind friendly #3 - Tritanomaly}
+ggplot(purifiedhoney, aes(year, prodsimpler)) +
+  geom_line(aes(group=state),
+            color = "gray80") +
+  geom_line(data = filter(purifiedhoney,
+                           state == "OR"),
+           color = "#FF8F82") +
+    geom_line(data = filter(purifiedhoney,
+                           state == "WA"),
+           color = "#00AE9C") +
+  
+    geom_line(data = filter(purifiedhoney,
+                           state == "CA"),
+           color = "#FFD0BC") +
+  scale_y_log10()+
+  labs(title = "US Honey Production",
+       subtitle = "1998-2012",
+       y = "Thousands of gallons",
+       x = "Year",
+       caption = "An adult worker bee's lifespan is about 45 days.")+    
+  annotate(geom = "point", x = 1998, y = 37350, colour = "#FFD0BC", size = 3) + 
+  annotate(geom = "point", x = 1998, y = 37350) + 
+  annotate(geom = "text", x = 1998.3, y = 37350, label = "CALIFORNIA", hjust = "left")+    
+  annotate(geom = "point", x = 1998, y = 2955, colour = "#00AE9C", size = 3) + 
+  annotate(geom = "point", x = 1998, y = 2955) + 
+  annotate(geom = "text", x = 1998.3, y = 3500, label = "WASHINGTON", hjust = "left")+    
+  annotate(geom = "point", x = 1998, y = 2250, colour = "#FF8F82", size = 3) + 
+  annotate(geom = "point", x = 1998, y = 2250) + 
+  annotate(geom = "text", x = 1998.3, y = 1900, label = "OREGON", hjust = "left")
+```
+
+```{r colorblind friendly - desaturated}
+ggplot(purifiedhoney, aes(year, prodsimpler)) +
+  geom_line(aes(group=state),
+            color = "gray80") +
+  geom_line(data = filter(purifiedhoney,
+                           state == "OR"),
+           color = "gray10") +
+    geom_line(data = filter(purifiedhoney,
+                           state == "WA"),
+           color = "gray50") +
+  
+    geom_line(data = filter(purifiedhoney,
+                           state == "CA"),
+           color = "gray30") +
+  scale_y_log10()+
+  labs(title = "US Honey Production",
+       subtitle = "1998-2012",
+       y = "Thousands of gallons",
+       x = "Year",
+       caption = "99% of a bee colony is made up of female bees.")+    
+  annotate(geom = "point", x = 1998, y = 37350, colour = "gray30", size = 3) + 
+  annotate(geom = "point", x = 1998, y = 37350) + 
+  annotate(geom = "text", x = 1998.3, y = 37350, label = "CALIFORNIA", hjust = "left")+    
+  annotate(geom = "point", x = 1998, y = 2955, colour = "gray50", size = 3) + 
+  annotate(geom = "point", x = 1998, y = 2955) + 
+  annotate(geom = "text", x = 1998.3, y = 3500, label = "WASHINGTON", hjust = "left")+    
+  annotate(geom = "point", x = 1998, y = 2250, colour = "gray10", size = 3) + 
+  annotate(geom = "point", x = 1998, y = 2250) + 
+  annotate(geom = "text", x = 1998.3, y = 1900, label = "OREGON", hjust = "left")
+```
+
+```{r color blind safe palette}
+ggplot(purifiedhoney, aes(year, prodsimpler)) +
+  geom_line(aes(group=state),
+            color = "gray80") +
+  geom_line(data = filter(purifiedhoney,
+                           state == "OR"),
+           color = "#00A078") +
+    geom_line(data = filter(purifiedhoney,
+                           state == "WA"),
+           color = "#FC6426") +
+  
+    geom_line(data = filter(purifiedhoney,
+                           state == "CA"),
+           color = "#FFA12C") +
+  scale_y_log10()+
+  labs(title = "US Honey Production",
+       subtitle = "1998-2012",
+       y = "Thousands of gallons",
+       x = "Year",
+       caption = "Bees have an excellent sense of smell.")+    
+  annotate(geom = "point", x = 1998, y = 37350, colour = "#FFA12C", size = 3) + 
+  annotate(geom = "point", x = 1998, y = 37350) + 
+  annotate(geom = "text", x = 1998.3, y = 37350, label = "CALIFORNIA", hjust = "left")+    
+  annotate(geom = "point", x = 1998, y = 2955, colour = "#FC6426", size = 3) + 
+  annotate(geom = "point", x = 1998, y = 2955) + 
+  annotate(geom = "text", x = 1998.3, y = 3500, label = "WASHINGTON", hjust = "left")+    
+  annotate(geom = "point", x = 1998, y = 2250, colour = "#00A078", size = 3) + 
+  annotate(geom = "point", x = 1998, y = 2250) + 
+  annotate(geom = "text", x = 1998.3, y = 1900, label = "OREGON", hjust = "left")
+
+```
+```{r bar plot showing average honey production, with color indicating region}
+
+```
+
+```{r heatmap of average production by region}
+
+```
+
+
+
 
