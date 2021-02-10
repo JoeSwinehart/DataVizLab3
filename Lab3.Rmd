@@ -14,10 +14,55 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r setup}
-
+library(ggplot2)
 library(here)
 library(tidyverse)
 library(lubridate)
 library(waffle)
+library(dplyr)
+library(directlabels)
 imported_honey_production <- read.csv(here("data", "honeyproduction.csv"))
 ```
+
+```{r}
+purifiedhoney <- imported_honey_production %>% 
+  select(state, year, totalprod) %>% 
+  mutate(
+    prodsimpler = totalprod/1000
+  )
+```
+
+
+```{r visualize honey production over time}
+
+ggplot(purifiedhoney, aes(year, prodsimpler)) +
+  geom_line(aes(group=state),
+            color = "gray80") +
+  geom_line(data = filter(purifiedhoney,
+                           state == "OR"),
+           color = "#60D838") +
+    geom_line(data = filter(purifiedhoney,
+                           state == "WA"),
+           color = "#00A1FE") +
+  
+    geom_line(data = filter(purifiedhoney,
+                           state == "CA"),
+           color = "#FF634D") +
+  scale_y_log10()+
+  labs(title = "US Honey Production",
+       subtitle = "1998-2012",
+       y = "Thousands of gallons",
+       x = "Year",
+       caption = "The average honey bee's wings flap over 183 times per second.")+    
+  annotate(geom = "point", x = 1998, y = 37350, colour = "#FF634D", size = 3) + 
+  annotate(geom = "point", x = 1998, y = 37350) + 
+  annotate(geom = "text", x = 1998.3, y = 37350, label = "CALIFORNIA", hjust = "left")+    
+  annotate(geom = "point", x = 1998, y = 2955, colour = "#00A1FE", size = 3) + 
+  annotate(geom = "point", x = 1998, y = 2955) + 
+  annotate(geom = "text", x = 1998.3, y = 3500, label = "WASHINGTON", hjust = "left")+    
+  annotate(geom = "point", x = 1998, y = 2250, colour = "#60D838", size = 3) + 
+  annotate(geom = "point", x = 1998, y = 2250) + 
+  annotate(geom = "text", x = 1998.3, y = 1900, label = "OREGON", hjust = "left")
+
+```
+
