@@ -23,14 +23,24 @@ library(dplyr)
 library(directlabels)
 library(gghighlight)
 library(colorblindr)
-imported_honey_production <- read.csv(here("data", "honeyproduction.csv"))
+imported_honey_production <- read.csv(here("data/honeyproduction.csv"))
+census_regions <-  read_csv(here("data/us census bureau regions and divisions.csv"))
+census_regions %>% 
+  rename(
+   state=  `State Code`
+  )
+
 ```
 
-```{r}
+```{r making data friendly}
 purifiedhoney <- imported_honey_production %>% 
   select(state, year, totalprod) %>% 
   mutate(
     prodsimpler = totalprod/1000
+  )
+census_regions <- census_regions %>% 
+  rename(
+   state=  `State Code`
   )
 ```
 
@@ -223,6 +233,11 @@ ggplot(purifiedhoney, aes(year, prodsimpler)) +
   annotate(geom = "text", x = 1998.3, y = 1900, label = "OREGON", hjust = "left")
 
 ```
+
+```{r join with census regions}
+regional_honey_production <- left_join(purifiedhoney, census_regions, by="state")
+```
+
 ```{r bar plot showing average honey production, with color indicating region}
 
 ```
