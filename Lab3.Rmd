@@ -238,21 +238,20 @@ ggplot(purifiedhoney, aes(year, prodsimpler)) +
 regional_honey_production <- left_join(purifiedhoney, census_regions) %>% 
   group_by(state, Region) %>% 
   summarise(totalprod = mean(totalprod)) %>% 
-  mutate(Region = as.factor(Region)) %>% 
-  # mutate(Region = fct_reorder(Region,
-  #                             "Midwest",
-  #                             "West",
-  #                             "South",
-  #                             "Northeast"))
-  arrange(Region)
-  
+  ungroup() %>% 
+  mutate(Region = as.factor(Region))
 
-ggplot(regional_honey_production, aes(state, totalprod, color = Region)) +
-  geom_col(aes(group = Region)) 
+# Leaving this in case we need it
+         fct_reorder(Region,
+                            "Midwest",
+                            "West",
+                            "South",
+                            "Northeast"))
 ```
 
 ```{r bar plot showing average honey production, with color indicating region}
-
+ggplot(regional_honey_production, aes(reorder(state, -totalprod), totalprod, fill = Region)) +
+  geom_col(aes(group = Region))
 ```
 
 ```{r heatmap of average production by region}
