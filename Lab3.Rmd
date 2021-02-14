@@ -255,7 +255,8 @@ ggplot(regional_honey_production, aes(reorder(state, -totalprod), totalprod, fil
 ```
 
 ```{r heatmap of average production by region}
-
+ggplot(regional_honey_production, aes(state, Region, fill = totalprod)) +
+  geom_raster(hjust = 0, vjust = 0)
 ```
 
 
