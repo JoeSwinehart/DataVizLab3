@@ -274,7 +274,11 @@ heat_dat <- full_join(premium_honey, regional_honey_production) %>%
 # Heatmap
 ggplot(heat_dat, aes(year, Region, fill = totalprod)) +
   geom_raster(hjust = 0, vjust = 0) +
-  scale_fill_viridis_c(option = "magma") 
+  scale_fill_viridis_c(option = "magma") +
+  labs(title = "Average Honey Production by Region", 
+       subtitles = "1998-2012",
+       x = "",
+       y = "Region")
 
 ```
 
