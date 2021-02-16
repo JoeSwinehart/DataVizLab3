@@ -251,8 +251,15 @@ regional_honey_production <- left_join(purifiedhoney, census_regions) %>%
 
 ```{r bar plot showing average honey production, with color indicating region}
 ggplot(regional_honey_production, aes(reorder(state, -totalprod), totalprod, fill = Region)) +
-  geom_col(aes(group = Region))
+  geom_col(aes(group = Region)) +
+  coord_flip() +
+  labs(title = "Average Honey Production",
+       subtitle = "Per state with color indicating region", 
+       y = "Total production per gallon (thousands)",
+       x = "")
 ```
+
+Most honey production for the United States occurs in the Midwest and West. This is not surprising as most of the crop production for the country also occurs in these areas; bees would thrive in areas where there are high levels of crop production. The lowest production rate is in the northeast. 
 
 ```{r heatmap of average production by region}
 ggplot(regional_honey_production, aes(state, Region, fill = totalprod)) +
