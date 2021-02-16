@@ -292,6 +292,16 @@ library(hexbin)
 
 ggplot(imported_honey_production, aes(year, priceperlb)) +
   geom_hex(bins = 15) +
-  scale_fill_viridis_c()
+  scale_fill_viridis_c(guide = FALSE) +
+  scale_x_continuous(breaks = NULL) +
+  scale_y_continuous(breaks = NULL) +
+  theme_minimal() +
+  labs(title = "Honey Prices per Pound from 1998 to 2012",
+       subtitle = "Per state",
+       x = "Year",
+       y = "Price per pound")
+
+#Added title and subtitle based on my observations but could use some tweaking
+#Deleted background grid lines and legend to provide more space
 
 ```
