@@ -263,25 +263,31 @@ Most honey production for the United States occurs in the Midwest and West. This
 
 ```{r heatmap of average production by region}
 
-
-head(regional_honey_production)
-
-
 premium_honey <- imported_honey_production %>%
   select(state, year)
 
+# Data for heatmap
 heat_dat <- full_join(premium_honey, regional_honey_production) %>%
   group_by(year, Region) %>% 
   mutate(totalprod = round(mean(totalprod)))
 
+# Heatmap
 ggplot(heat_dat, aes(year, Region, fill = totalprod)) +
   geom_raster(hjust = 0, vjust = 0) +
-  scale_fill_viridis_c(option = "magma")
+  scale_fill_viridis_c(option = "magma") 
 
 ```
 
 ```{r choice plot}
 
+library(hexbin)
+# On the bee theme, I'm gonna try something that looks like a honey comb.
 
+# Ignore the following commented data:
+# hex_dat <- full_join(premium_honey, regional_honey_production)
+
+ggplot(imported_honey_production, aes(year, priceperlb)) +
+  geom_hex(bins = 15) +
+  scale_fill_viridis_c()
 
 ```
