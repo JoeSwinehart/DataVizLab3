@@ -242,11 +242,11 @@ regional_honey_production <- left_join(purifiedhoney, census_regions) %>%
   mutate(Region = as.factor(Region))
 
 # Leaving this in case we need it
-         fct_reorder(Region,
-                            "Midwest",
-                            "West",
-                            "South",
-                            "Northeast"))
+#         fct_reorder(Region,
+#                            "Midwest",
+#                            "West",
+#                            "South",
+#                            "Northeast"))
 ```
 
 ```{r bar plot showing average honey production, with color indicating region}
@@ -270,9 +270,13 @@ head(regional_honey_production)
 premium_honey <- imported_honey_production %>%
   select(state, year)
 
-full_join(premium_honey, regional_honey_production) %>%
-  ggplot(aes(year, Region, fill = totalprod)) +
-  geom_raster(hjust = 0, vjust = 0)
+heat_dat <- full_join(premium_honey, regional_honey_production) %>%
+  group_by(year, Region) %>% 
+  mutate(totalprod = round(mean(totalprod)))
+
+ggplot(heat_dat, aes(year, Region, fill = totalprod)) +
+  geom_raster(hjust = 0, vjust = 0) +
+  scale_fill_viridis_c(option = "magma")
 
 ```
 
