@@ -684,7 +684,7 @@ regional_honey_production &lt;- left_join(purifiedhoney, census_regions) %&gt;%
   ungroup() %&gt;% 
   mutate(Region = as.factor(Region))</code></pre>
 <pre><code>## Joining, by = &quot;state&quot;</code></pre>
-<pre><code>## `summarise()` has grouped output by &#39;state&#39;. You can override using the `.groups` argument.</code></pre>
+<pre><code>## `summarise()` regrouping output by &#39;state&#39; (override with `.groups` argument)</code></pre>
 <p>Vizualization #7: Bar Plot of Average Honey Production by Region </p>
 <pre class="r"><code>#it&#39;s all in the title to this code chunk
 ggplot(regional_honey_production, aes(reorder(state, -totalprod), totalprod, fill = Region)) +

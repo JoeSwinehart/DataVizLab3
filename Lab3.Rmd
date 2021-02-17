@@ -305,6 +305,7 @@ ggplot(heat_dat, aes(year, Region, fill = totalprod)) +
 \n Vizualization #9: Choice Plot! Made to resemble a honeycomb  \n\n
 
 ```{r choice plot}
+
 #For our choice plot, we elected to do a honeycomb type figure
 ggplot(imported_honey_production, aes(year, priceperlb)) +
   geom_hex(bins = 12) +
@@ -312,11 +313,29 @@ ggplot(imported_honey_production, aes(year, priceperlb)) +
   #We liked a previous version of our code with different colors, but given the parameters of the assignment it might be more appropriate to have a differential based on shade rather than color, so we didn't force scale_fill_viridis below
   #scale_fill_viridis_c() +
   theme_minimal() +
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  #theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
   labs(title = "Honey Prices per Pound from 1998 to 2012",
        subtitle = "Per state",
        x = "Year",
-       y = "Price per pound") +
-  scale_fill_gradient(low = "#FFFC75", high = "#FF942A", name = "Number of States per unit")
+       y = "Price per pound",
+       caption = "Plot labels reflect select year average price per pound.") +
+  scale_fill_gradient(low = "#FFFC75", high = "#FF942A", name = "Number of States per unit") +
+  
+  # Tried to add in labels for yearly average
+  
+  geom_text(data = yr_means, aes(x=year, y=avg, label=avg))
+
+# Quick data frame for yearly average labels
+yr_means <- imported_honey_production %>% 
+  group_by(year) %>% 
+  summarize(round(mean(priceperlb), digits = 2)) %>% 
+  rename(avg = "round(mean(priceperlb), digits = 2)") %>% 
+  filter(year == 2000 |
+         year == 2004 |
+         year == 2008 |
+         year == 2012)
+
+# I hoped to include dollar signs in the plot labels through geom_text but wasn't able to
+# figure out how to do so.
 
 ```
