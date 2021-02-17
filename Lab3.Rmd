@@ -21,6 +21,8 @@ library(waffle)
 library(dplyr)
 library(directlabels)
 library(gghighlight)
+library(scales)
+library(hexbin)
 
 #Importing files
 imported_honey_production <- read.csv(here("data/honeyproduction.csv"))
@@ -228,28 +230,29 @@ ggplot(purifiedhoney, aes(year, prodsimpler)) +
 ```
 
 ```{r join with census regions}
+
+#Join for existing dataset (purifiedhoney) and additional data for assignment from TidyTuesday author (census_regions). Key is automatically identified as "state"
 regional_honey_production <- left_join(purifiedhoney, census_regions) %>% 
   group_by(state, Region) %>% 
   summarise(totalprod = mean(totalprod)) %>% 
   ungroup() %>% 
   mutate(Region = as.factor(Region))
-
-# Leaving this in case we need it
-#         fct_reorder(Region,
-#                            "Midwest",
-#                            "West",
-#                            "South",
-#                            "Northeast"))
 ```
 
 ```{r bar plot showing average honey production, with color indicating region}
+
+#it's all in the title to this chunk
 ggplot(regional_honey_production, aes(reorder(state, -totalprod), totalprod, fill = Region)) +
   geom_col(aes(group = Region)) +
   coord_flip() +
+  #removed exponential labels along the x-axis
+   scale_y_continuous(labels = comma) +
   labs(title = "Average Honey Production",
        subtitle = "Per state with color indicating region", 
        y = "Total production per gallon (thousands)",
-       x = "")
+       x = "State")
+
+#Patterns noticed: Midwest and West tend to produce more, Northeast less, and South much less.
 ```
 
 Most honey production for the United States occurs in the Midwest and West. This is not surprising as most of the crop production for the country also occurs in these areas; bees would thrive in areas where there are high levels of crop production. The lowest production rate is in the northeast. 
@@ -259,7 +262,7 @@ Most honey production for the United States occurs in the Midwest and West. This
 premium_honey <- imported_honey_production %>%
   select(state, year)
 
-# Data for heatmap
+# Data for heatmap with mean calculations embedded 
 heat_dat <- full_join(premium_honey, regional_honey_production) %>%
   group_by(year, Region) %>% 
   mutate(totalprod = round(mean(totalprod)))
@@ -270,31 +273,24 @@ ggplot(heat_dat, aes(year, Region, fill = totalprod)) +
   scale_fill_viridis_c(option = "magma") +
   labs(title = "Average Honey Production by Region", 
        subtitles = "1998-2012",
-       x = "",
+       x = "Year",
        y = "Region")
 
 ```
 
 ```{r choice plot}
-
-library(hexbin)
-# On the bee theme, I'm gonna try something that looks like a honey comb.
-
-# Ignore the following commented data:
-# hex_dat <- full_join(premium_honey, regional_honey_production)
-
+#For our choice plot, we elected to do a honeycomb type figure
 ggplot(imported_honey_production, aes(year, priceperlb)) +
-  geom_hex(bins = 15) +
-  scale_fill_viridis_c(guide = FALSE) +
-  scale_x_continuous(breaks = NULL) +
-  scale_y_continuous(breaks = NULL) +
+  geom_hex(bins = 12) +
+  scale_y_continuous(labels = dollar_format()) +
+  #We liked a previous version of our code with different colors, but given the parameters of the assignment it might be more appropriate to have a differential based on shade rather than color, so we didn't force scale_fill_viridis below
+  #scale_fill_viridis_c() +
   theme_minimal() +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
   labs(title = "Honey Prices per Pound from 1998 to 2012",
        subtitle = "Per state",
        x = "Year",
-       y = "Price per pound")
-
-#Added title and subtitle based on my observations but could use some tweaking
-#Deleted background grid lines and legend to provide more space
+       y = "Price per pound") +
+  scale_fill_continuous(name = "Number of States per unit")
 
 ```
