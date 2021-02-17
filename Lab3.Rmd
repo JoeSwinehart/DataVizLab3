@@ -317,6 +317,6 @@ ggplot(imported_honey_production, aes(year, priceperlb)) +
        subtitle = "Per state",
        x = "Year",
        y = "Price per pound") +
-  scale_fill_continuous(name = "Number of States per unit")
+  scale_fill_gradient(low = "#FFFC75", high = "#FF942A", name = "Number of States per unit")
 
 ```
