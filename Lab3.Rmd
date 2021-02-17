@@ -67,7 +67,7 @@ ggplot(purifiedhoney, aes(year, prodsimpler)) +
   #Adding in appropriate indications and annotations
   labs(title = "US Honey Production",
        subtitle = "1998-2012",
-       y = "Thousands of gallons",
+       y = "Thousands of pounds",
        x = "Year",
        caption = "The average honey bee's wings flap over 183 times per second.")+    
   annotate(geom = "point", x = 1998, y = 37350, colour = "#FF634D", size = 3) + 
@@ -102,7 +102,7 @@ ggplot(purifiedhoney, aes(year, prodsimpler)) +
   scale_y_log10()+
   labs(title = "US Honey Production",
        subtitle = "1998-2012",
-       y = "Thousands of gallons",
+       y = "Thousands of pounds",
        x = "Year",
        caption = "A queen bee can sting multiple times without dying.")+    
   annotate(geom = "point", x = 1998, y = 37350, colour = "#FFE26A", size = 3) + 
@@ -135,7 +135,7 @@ ggplot(purifiedhoney, aes(year, prodsimpler)) +
   scale_y_log10()+
   labs(title = "US Honey Production",
        subtitle = "1998-2012",
-       y = "Thousands of gallons",
+       y = "Thousands of pounds",
        x = "Year",
        caption = "A typical Bee colony consists of 30,000 to 60,000 bees.")+    
   annotate(geom = "point", x = 1998, y = 37350, colour = "#D5A238", size = 3) + 
@@ -169,7 +169,7 @@ ggplot(purifiedhoney, aes(year, prodsimpler)) +
   scale_y_log10()+
   labs(title = "US Honey Production",
        subtitle = "1998-2012",
-       y = "Thousands of gallons",
+       y = "Thousands of pounds",
        x = "Year",
        caption = "An adult worker bee's lifespan is about 45 days.")+    
   annotate(geom = "point", x = 1998, y = 37350, colour = "#FFD0BC", size = 3) + 
@@ -202,7 +202,7 @@ ggplot(purifiedhoney, aes(year, prodsimpler)) +
   scale_y_log10()+
   labs(title = "US Honey Production",
        subtitle = "1998-2012",
-       y = "Thousands of gallons",
+       y = "Thousands of pounds",
        x = "Year",
        caption = "99% of a bee colony is made up of female bees.")+  
   theme_minimal()+
@@ -237,7 +237,7 @@ ggplot(purifiedhoney, aes(year, prodsimpler)) +
   scale_y_log10()+
   labs(title = "US Honey Production",
        subtitle = "1998-2012",
-       y = "Thousands of gallons",
+       y = "Thousands of pounds",
        x = "Year",
        caption = "Bees have an excellent sense of smell.")+    
   theme_minimal()+
@@ -272,7 +272,7 @@ ggplot(regional_honey_production, aes(reorder(state, -totalprod), totalprod, fil
    scale_y_continuous(labels = comma) +
   labs(title = "Average Honey Production",
        subtitle = "Per state with color indicating region", 
-       y = "Total production per gallon (thousands)",
+       y = "Average production per state (in pounds)",
        x = "State")
 
 ```
