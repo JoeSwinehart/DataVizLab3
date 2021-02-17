@@ -6,13 +6,15 @@ author:
   - Janette Avelar
   - David Fainstein
 date: "2/8/2021"
-output: html_document
+output: 
+  html_document:
+    code_folding: hide
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, results = 'hide', messages = FALSE)
 
-#loadling libraries needed for Lab 3
+#loading libraries needed for Lab 3
 library(ggplot2)
 library(here)
 library(tidyverse)
@@ -41,6 +43,7 @@ census_regions <- census_regions %>%
   rename(state = `State Code`)
 ```
 
+\n Vizualization #1: Honey Production Over Time \n\n
 
 ```{r visualize honey production over time}
 
@@ -75,8 +78,9 @@ ggplot(purifiedhoney, aes(year, prodsimpler)) +
   annotate(geom = "text", x = 1998.3, y = 1900, label = "OREGON", hjust = "left")
 
 ```
+\n Vizualization #2: Alteration for Accessibility #1 \n\n
 
-```{r colorblind friendly #1 - Duetanomaly}
+```{r colorblind friendly 1 Duetanomaly}
 
 #Replication of code block above with one change: colors changed for accessibility to people with red-green colorblindness
 ggplot(purifiedhoney, aes(year, prodsimpler)) +
@@ -105,8 +109,9 @@ ggplot(purifiedhoney, aes(year, prodsimpler)) +
   annotate(geom = "point", x = 1998, y = 2250, colour = "#E5B33F", size = 3) + 
   annotate(geom = "text", x = 1998.3, y = 1900, label = "OREGON", hjust = "left")
 ```
+\n\n Vizualization #3: Alteration for Accessibility #2 \n\n
 
-```{r colorblind friendly #2 - Protanomaly}
+```{r colorblind friendly 2 Protanomaly}
 
 #Replication of code block above with one change: colors changed for accessibility to people with a different type of red-green colorblindness
 ggplot(purifiedhoney, aes(year, prodsimpler)) +
@@ -136,7 +141,9 @@ ggplot(purifiedhoney, aes(year, prodsimpler)) +
   annotate(geom = "text", x = 1998.3, y = 1900, label = "OREGON", hjust = "left")
 ```
 
-```{r colorblind friendly #3 - Tritanomaly}
+\n\n Vizualization #4: Alteration for Accessibility #3 \n\n
+
+```{r colorblind friendly 3 Tritanomaly}
 
 #Replication of code block above with one change: colors changed for accessibility to people with a blue-yellow colorblindness
 ggplot(purifiedhoney, aes(year, prodsimpler)) +
@@ -165,8 +172,9 @@ ggplot(purifiedhoney, aes(year, prodsimpler)) +
   annotate(geom = "point", x = 1998, y = 2250, colour = "#FF8F82", size = 3) + 
   annotate(geom = "text", x = 1998.3, y = 1900, label = "OREGON", hjust = "left")
 ```
+\n\n Vizualization #5: Alteration for Accessibility #4 \n\n
 
-```{r colorblind friendly - desaturated}
+```{r colorblind friendly desaturated}
 
 #Replication of code block above with a few changes: colors completely desaturated for accessibility, and background gray altered (using theme_minimal)
 ggplot(purifiedhoney, aes(year, prodsimpler)) +
@@ -196,6 +204,8 @@ ggplot(purifiedhoney, aes(year, prodsimpler)) +
   annotate(geom = "point", x = 1998, y = 2250, colour = "gray10", size = 3) + 
   annotate(geom = "text", x = 1998.3, y = 1900, label = "OREGON", hjust = "left")
 ```
+
+\n Vizualization #6: Alteration for Accessibility #5 (perhaps most accessible to people with any form of colorblindness) \n\n
 
 ```{r color blind safe palette}
 
@@ -239,9 +249,11 @@ regional_honey_production <- left_join(purifiedhoney, census_regions) %>%
   mutate(Region = as.factor(Region))
 ```
 
+\n Vizualization #7: Bar Plot of Average Honey Production by Region \n\n
+
 ```{r bar plot showing average honey production, with color indicating region}
 
-#it's all in the title to this chunk
+#it's all in the title to this code chunk
 ggplot(regional_honey_production, aes(reorder(state, -totalprod), totalprod, fill = Region)) +
   geom_col(aes(group = Region)) +
   coord_flip() +
@@ -252,10 +264,11 @@ ggplot(regional_honey_production, aes(reorder(state, -totalprod), totalprod, fil
        y = "Total production per gallon (thousands)",
        x = "State")
 
-#Patterns noticed: Midwest and West tend to produce more, Northeast less, and South much less.
 ```
 
-Most honey production for the United States occurs in the Midwest and West. This is not surprising as most of the crop production for the country also occurs in these areas; bees would thrive in areas where there are high levels of crop production. The lowest production rate is in the northeast. 
+Most honey production for the United States occurs in the Midwest and West. This is not surprising as most of the crop production for the country also occurs in these areas; bees would thrive in areas where there are high levels of crop production. The lowest production rate is in the northeast. \n\n
+
+\n Vizualization #8: Heatmap of Honey Production by Region \n\n
 
 ```{r heatmap of average production by region}
 
@@ -277,6 +290,8 @@ ggplot(heat_dat, aes(year, Region, fill = totalprod)) +
        y = "Region")
 
 ```
+
+\n Vizualization #9: Choice Plot! Made to resemble a honeycomb  \n\n
 
 ```{r choice plot}
 #For our choice plot, we elected to do a honeycomb type figure
