@@ -78,7 +78,10 @@ ggplot(purifiedhoney, aes(year, prodsimpler)) +
   annotate(geom = "text", x = 1998.3, y = 1900, label = "OREGON", hjust = "left")
 
 ```
-\n Vizualization #2: Alteration for Accessibility #1 \n\n
+\n 
+
+Vizualization #2: Alteration for Accessibility #1 
+\n\n
 
 ```{r colorblind friendly 1 Duetanomaly}
 
@@ -109,7 +112,9 @@ ggplot(purifiedhoney, aes(year, prodsimpler)) +
   annotate(geom = "point", x = 1998, y = 2250, colour = "#E5B33F", size = 3) + 
   annotate(geom = "text", x = 1998.3, y = 1900, label = "OREGON", hjust = "left")
 ```
-\n\n Vizualization #3: Alteration for Accessibility #2 \n\n
+\n\n 
+
+Vizualization #3: Alteration for Accessibility #2 \n\n
 
 ```{r colorblind friendly 2 Protanomaly}
 
@@ -141,7 +146,9 @@ ggplot(purifiedhoney, aes(year, prodsimpler)) +
   annotate(geom = "text", x = 1998.3, y = 1900, label = "OREGON", hjust = "left")
 ```
 
-\n\n Vizualization #4: Alteration for Accessibility #3 \n\n
+\n\n 
+
+Vizualization #4: Alteration for Accessibility #3 \n\n
 
 ```{r colorblind friendly 3 Tritanomaly}
 
@@ -172,7 +179,9 @@ ggplot(purifiedhoney, aes(year, prodsimpler)) +
   annotate(geom = "point", x = 1998, y = 2250, colour = "#FF8F82", size = 3) + 
   annotate(geom = "text", x = 1998.3, y = 1900, label = "OREGON", hjust = "left")
 ```
-\n\n Vizualization #5: Alteration for Accessibility #4 \n\n
+\n\n 
+
+Vizualization #5: Alteration for Accessibility #4 \n\n
 
 ```{r colorblind friendly desaturated}
 
@@ -205,7 +214,9 @@ ggplot(purifiedhoney, aes(year, prodsimpler)) +
   annotate(geom = "text", x = 1998.3, y = 1900, label = "OREGON", hjust = "left")
 ```
 
-\n Vizualization #6: Alteration for Accessibility #5 (perhaps most accessible to people with any form of colorblindness) \n\n
+\n 
+
+Vizualization #6: Alteration for Accessibility #5 (perhaps most accessible to people with any form of colorblindness) \n\n
 
 ```{r color blind safe palette}
 
