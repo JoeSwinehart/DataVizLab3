@@ -270,9 +270,9 @@ ggplot(regional_honey_production, aes(reorder(state, -totalprod), totalprod, fil
   coord_flip() +
   #removed exponential labels along the x-axis
    scale_y_continuous(labels = comma) +
-  labs(title = "Average Honey Production",
+  labs(title = "Average Honey Production 1998-2012",
        subtitle = "Per state with color indicating region", 
-       y = "Average production per state (in pounds)",
+       y = "Average annual production in gallons",
        x = "State")
 
 ```
